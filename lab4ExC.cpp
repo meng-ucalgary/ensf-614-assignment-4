@@ -11,6 +11,7 @@
 #include <fstream>
 #include <sstream>
 #include <stdlib.h>
+#include <string.h>
 
 const int size = 6;
 using namespace std;
@@ -66,5 +67,40 @@ void write_binary_file(City cities[], int size, char *filename)
 
 void print_from_binary(char *filename)
 {
-    /* Studnets must complete the implementaiton of this file. */
+    ifstream in_stream(filename, ios::in | ios::binary);
+    if (in_stream.fail())
+    {
+        cerr << "failed to open file: " << filename << endl;
+        exit(1);
+    }
+
+    int length = strlen(filename);
+    char *filename_txt = new char[length + 1];
+    for (int i = 0; i < length - 3; i++)
+    {
+        filename_txt[i] = filename[i];
+    }
+    filename_txt[length - 3] = 't';
+    filename_txt[length - 2] = 'x';
+    filename_txt[length - 1] = 't';
+    filename_txt[length] = '\0';
+
+    ofstream out_stream(filename_txt);
+    if(out_stream.fail())
+    {
+        cerr << "failed to open file: " << filename_txt << endl;
+        exit(1);
+    }
+
+    City c;
+    while (!in_stream.eof())
+    {
+        in_stream.read((char *)&c, sizeof(City));
+        cout << "Name: " << c.name << ", x coordinate: " << c.x << ", y coordinate: " << c.y << endl;
+        out_stream << "Name: " << c.name << ", x coordinate: " << c.x << ", y coordinate: " << c.y << endl;
+    }
+
+    in_stream.close();
+    out_stream.close();
+    delete[] filename_txt;
 }
