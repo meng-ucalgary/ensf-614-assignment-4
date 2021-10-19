@@ -1,3 +1,12 @@
+/*
+ * File Name:               lab4ExB.cpp
+ * Course:                  ENSF 614 - Fall 2021
+ * Lab # and Assignment #:  Lab 4 Exercise B
+ * Lab section:             B01
+ * Completed by:            Bhavyai Gupta, Aastha Patel
+ * Submission Date:         NA
+ */
+
 #include <vector>
 #include <string>
 #include <iostream>
@@ -42,7 +51,7 @@ int main()
         cout << sv.at(i);
         cout << endl;
     }
-    cout << endl;
+
     String_Vector vs = transpose(sv);
     for (int i = 0; i < (int)vs.size(); i++)
         cout << vs.at(i) << endl;
