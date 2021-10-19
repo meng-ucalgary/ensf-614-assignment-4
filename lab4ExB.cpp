@@ -1,24 +1,15 @@
-/*
- * File Name:                       lab4ExB.cpp
- * Course:                            ENSF 614 - Fall 2021
- * Lab # and Assignment #:  Lab 4 Exercise B
- * Lab section:                     B01
- * Completed by:                  Bhavyai Gupta, Aastha Patel
- * Submission Date:              NA
- */
-
-#include<vector>
-#include<string>
+#include <vector>
+#include <string>
 #include <iostream>
-using std::cout;
 using std::cerr;
+using std::cout;
 using std::endl;
-using std::vector;
 using std::string;
+using std::vector;
 
 typedef vector<string> String_Vector;
 
-String_Vector transpose(const String_Vector& sv);
+String_Vector transpose(const String_Vector &sv);
 // REQUIRES:
 //    sv.size() >= 1
 //    All the strings in sv are the same length, and that length is >= 1.
@@ -26,75 +17,57 @@ String_Vector transpose(const String_Vector& sv);
 //    Return value is the "transpose" of sv, as defined in the Exercise B
 //    instructions.
 
-int main() {
-
+int main()
+{
     const int ROWS = 5;
     const int COLS = 4;
 
     char c = 'A';
     String_Vector sv;
-
     sv.resize(ROWS);
 
-     cout << endl;
-     cout << "Given Matrix"<<endl;
-     cout << endl;
-
-    for(int i = 0; i < ROWS; i++)
-        for(int j = 0; j < COLS; j++) {
+    for (int i = 0; i < ROWS; i++)
+        for (int j = 0; j < COLS; j++)
+        {
             sv.at(i).push_back(c);
             c++;
-            if(c == 'Z' + 1)
+            if (c == 'Z' + 1)
                 c = 'a';
             else if (c == 'z' + 1)
                 c = 'A';
         }
 
-    for(int i = 0; i < ROWS; i++)
-       {
-                    cout<< sv.at(i);
-                    cout << endl;
-        }
-
-
-     cout << endl;
-     cout << "Transpose Matrix"<<endl;
-     cout << endl;
-
-    String_Vector sv1;
-    String_Vector vs = transpose(sv1);
-
-    for(int i = 0; i < (int)vs.size(); i++)
+    for (int i = 0; i < ROWS; i++)
+    {
+        cout << sv.at(i);
+        cout << endl;
+    }
+    cout << endl;
+    String_Vector vs = transpose(sv);
+    for (int i = 0; i < (int)vs.size(); i++)
         cout << vs.at(i) << endl;
 
     return 0;
 }
 
+String_Vector transpose(const String_Vector &sv)
+{
+    int rows = sv.size();
+    int cols = sv.at(0).size();
 
+    // create a new vector with cols size
+    String_Vector vs(cols);
 
-String_Vector transpose (const String_Vector& sv) {
+    for (int i = 0; i < cols; i++)
+    {
+        for (int j = 0; j < rows; j++)
+        {
+            // get the character from transpose location: basically i and j reversed
+            char c = sv.at(j).at(i);
 
-    // STUDENTS MUST COMPLETE THE DEFINITION OF THIS FUNCTION.
-
-    const int ROWS = 5;
-    const int COLS = 4;
-
-    char c = 'A';
-
-     String_Vector sv1;
-     sv1 = sv;
-     sv1.resize(ROWS);
-
-    for(int i = 0; i < ROWS; i++)
-        for(int j = 0; j < COLS; j++) {
-            sv1.at(j).push_back(c);
-            c++;
-            if(c == 'Z' + 1)
-                c = 'a';
-            else if (c == 'z' + 1)
-                c = 'A';
+            vs.at(i).push_back(c);
         }
+    }
 
-      return sv1;
-
+    return vs;
 }
